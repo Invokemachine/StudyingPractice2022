@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище StudyingPracticeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CommonEmployee">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Event_">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IssuedDocuments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateOfOrderOutcoming" Type="datetime" Nullable="false" />
+    <Property Name="Sign" Type="bit" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order_">
+    <Key>
+      <PropertyRef Name="OrderName" />
+    </Key>
+    <Property Name="OrderName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CurrentDate" Type="datetime" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Content_" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="EventResponsible" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PerformanceDate" Type="datetime" Nullable="false" />
+    <Property Name="Correspondent" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EventNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OutgoingCorrespondent">
+    <Key>
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Subdivision" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supervisor">
+    <Key>
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="Role" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "StudyingPractice.dbo.TableForEditing" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="TableForEditing">
+          <Property Name="EmployeeName" Type="nvarchar(max)" />
+          <Property Name="Age" Type="int" />
+          <Property Name="RoleOfEmployee" Type="nvarchar(max)" />
+        </EntityType>-->
+  <Association Name="FK__IssuedDoc__Order__4316F928">
+    <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+    <End Role="IssuedDocuments" Type="Self.IssuedDocuments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_">
+        <PropertyRef Name="OrderName" />
+      </Principal>
+      <Dependent Role="IssuedDocuments">
+        <PropertyRef Name="OrderName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__IssuedDocu__Role__440B1D61">
+    <End Role="Supervisor" Type="Self.Supervisor" Multiplicity="1" />
+    <End Role="IssuedDocuments" Type="Self.IssuedDocuments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supervisor">
+        <PropertyRef Name="Role" />
+      </Principal>
+      <Dependent Role="IssuedDocuments">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order___EventNum__3C69FB99">
+    <End Role="OutgoingCorrespondent" Type="Self.OutgoingCorrespondent" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OutgoingCorrespondent">
+        <PropertyRef Name="Role" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order___EventNum__3D5E1FD2">
+    <End Role="Event_" Type="Self.Event_" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event_">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="EventNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order___EventRes__3E52440B">
+    <End Role="CommonEmployee" Type="Self.CommonEmployee" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommonEmployee">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="EventResponsible" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище StudyingPracticeModelContainer">
+    <EntitySet Name="CommonEmployee" EntityType="Self.CommonEmployee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event_" EntityType="Self.Event_" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IssuedDocuments" EntityType="Self.IssuedDocuments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_" EntityType="Self.Order_" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OutgoingCorrespondent" EntityType="Self.OutgoingCorrespondent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supervisor" EntityType="Self.Supervisor" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__IssuedDoc__Order__4316F928" Association="Self.FK__IssuedDoc__Order__4316F928">
+      <End Role="Order_" EntitySet="Order_" />
+      <End Role="IssuedDocuments" EntitySet="IssuedDocuments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__IssuedDocu__Role__440B1D61" Association="Self.FK__IssuedDocu__Role__440B1D61">
+      <End Role="Supervisor" EntitySet="Supervisor" />
+      <End Role="IssuedDocuments" EntitySet="IssuedDocuments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order___EventNum__3C69FB99" Association="Self.FK__Order___EventNum__3C69FB99">
+      <End Role="OutgoingCorrespondent" EntitySet="OutgoingCorrespondent" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order___EventNum__3D5E1FD2" Association="Self.FK__Order___EventNum__3D5E1FD2">
+      <End Role="Event_" EntitySet="Event_" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order___EventRes__3E52440B" Association="Self.FK__Order___EventRes__3E52440B">
+      <End Role="CommonEmployee" EntitySet="CommonEmployee" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

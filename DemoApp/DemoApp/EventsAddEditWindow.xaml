@@ -1,0 +1,34 @@
+﻿<Window x:Class="DemoApp.EventsAddEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoApp"
+        mc:Ignorable="d"
+        Title="Добавить мероприятие" Icon="Picture2.jpg" Height="450" Width="800">
+    <Grid Background="#FFE0D1B4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="2" Background="#FF7FC782">
+            <Label Content="Добавление мероприятий" HorizontalAlignment="Center" FontFamily="Arial Rounded MT Bold" FontSize="18"/>
+        </StackPanel>
+        <TextBlock Text="Название" Grid.Row="1"></TextBlock>
+        <TextBlock Text="Дата проведения" Grid.Row="2"></TextBlock>
+        <TextBlock Text="Статус" Grid.Row="3"></TextBlock>
+        <TextBox Text="{Binding Name}"  MaxLength="100" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="200"/>
+        <TextBox Text="{Binding Date}"  MaxLength="100" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="200"/>
+        <TextBox Text="{Binding Status}"  MaxLength="100" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Width="200"/>
+        <Button x:Name="SaveButton" Content="Сохранить" Grid.Row="4" Grid.ColumnSpan="2" Click="SaveButton_Click"/>
+        <Button x:Name="EventsBackButton" Content="Назад" Click="EventsBackButton_Click"/>
+    </Grid>
+</Window>

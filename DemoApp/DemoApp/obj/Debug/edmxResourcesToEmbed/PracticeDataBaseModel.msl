@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище StudyingPracticeModelContainer" CdmEntityContainer="StudyingPracticeEntities">
+    <EntitySetMapping Name="CommonEmployee">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.CommonEmployee">
+        <MappingFragment StoreEntitySet="CommonEmployee">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Event_">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.Event_">
+        <MappingFragment StoreEntitySet="Event_">
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IssuedDocuments">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.IssuedDocuments">
+        <MappingFragment StoreEntitySet="IssuedDocuments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+          <ScalarProperty Name="DateOfOrderOutcoming" ColumnName="DateOfOrderOutcoming" />
+          <ScalarProperty Name="Sign" ColumnName="Sign" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.Order_">
+        <MappingFragment StoreEntitySet="Order_">
+          <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+          <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Content_" ColumnName="Content_" />
+          <ScalarProperty Name="EventResponsible" ColumnName="EventResponsible" />
+          <ScalarProperty Name="PerformanceDate" ColumnName="PerformanceDate" />
+          <ScalarProperty Name="Correspondent" ColumnName="Correspondent" />
+          <ScalarProperty Name="EventNumber" ColumnName="EventNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OutgoingCorrespondent">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.OutgoingCorrespondent">
+        <MappingFragment StoreEntitySet="OutgoingCorrespondent">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Subdivision" ColumnName="Subdivision" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supervisor">
+      <EntityTypeMapping TypeName="StudyingPracticeModel.Supervisor">
+        <MappingFragment StoreEntitySet="Supervisor">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

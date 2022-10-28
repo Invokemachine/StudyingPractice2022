@@ -1,0 +1,34 @@
+﻿<Window x:Class="DemoApp.EmployeeShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoApp"
+        mc:Ignorable="d"
+        Title="Список сотрудников" Icon="Picture2.jpg" Height="450" Width="800" IsVisibleChanged="Window_IsVisibleChanged">
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Background="#FF7FC782" Grid.Row="0">
+            <Label Height="25" Width="450" Content="Введите имя пользователя"/>
+            <Button x:Name="ExitButton" Width="140" Content="Назад" Click="ExitButton_Click"/>
+            <TextBox TextChanged="SearchTextBox_TextChanged" x:Name="SearchTextBox"  Margin="5" Height="25" Width="150"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="0" Grid.Column="2" Background="#FF7FC782">
+            <Button x:Name="EmployeeAddButton" Width="140" Content="Добавить сотрудника" Click="EmployeeAddButton_Click"  Background="#7EB9C1"/>
+            <Button x:Name="EmployeeDeleteButton" Width="140" Content="Удалить сотрудника" Click="EmployeeDeleteButton_Click" Background="#7EB9C1"/>
+        </WrapPanel>
+        <DataGrid x:Name="DataGridCommonEmployees" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Полное имя сотрудника" Width="*" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Должность сотрудника" Width="*" Binding="{Binding Role}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

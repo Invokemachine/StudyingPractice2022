@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudyingPracticeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CommonEmployee">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_" Relationship="Self.FK__Order___EventRes__3E52440B" FromRole="CommonEmployee" ToRole="Order_" />
+  </EntityType>
+  <EntityType Name="Event_">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_" Relationship="Self.FK__Order___EventNum__3D5E1FD2" FromRole="Event_" ToRole="Order_" />
+  </EntityType>
+  <EntityType Name="IssuedDocuments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfOrderOutcoming" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sign" Type="Boolean" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_" Relationship="Self.FK__IssuedDoc__Order__4316F928" FromRole="IssuedDocuments" ToRole="Order_" />
+    <NavigationProperty Name="Supervisor" Relationship="Self.FK__IssuedDocu__Role__440B1D61" FromRole="IssuedDocuments" ToRole="Supervisor" />
+  </EntityType>
+  <EntityType Name="Order_">
+    <Key>
+      <PropertyRef Name="OrderName" />
+    </Key>
+    <Property Name="OrderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CurrentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content_" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EventResponsible" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PerformanceDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Correspondent" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EventNumber" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CommonEmployee" Relationship="Self.FK__Order___EventRes__3E52440B" FromRole="Order_" ToRole="CommonEmployee" />
+    <NavigationProperty Name="Event_" Relationship="Self.FK__Order___EventNum__3D5E1FD2" FromRole="Order_" ToRole="Event_" />
+    <NavigationProperty Name="IssuedDocuments" Relationship="Self.FK__IssuedDoc__Order__4316F928" FromRole="Order_" ToRole="IssuedDocuments" />
+    <NavigationProperty Name="OutgoingCorrespondent" Relationship="Self.FK__Order___EventNum__3C69FB99" FromRole="Order_" ToRole="OutgoingCorrespondent" />
+  </EntityType>
+  <EntityType Name="OutgoingCorrespondent">
+    <Key>
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Subdivision" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_" Relationship="Self.FK__Order___EventNum__3C69FB99" FromRole="OutgoingCorrespondent" ToRole="Order_" />
+  </EntityType>
+  <EntityType Name="Supervisor">
+    <Key>
+      <PropertyRef Name="Role" />
+    </Key>
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="IssuedDocuments" Relationship="Self.FK__IssuedDocu__Role__440B1D61" FromRole="Supervisor" ToRole="IssuedDocuments" />
+  </EntityType>
+  <Association Name="FK__Order___EventRes__3E52440B">
+    <End Role="CommonEmployee" Type="Self.CommonEmployee" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommonEmployee">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="EventResponsible" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order___EventNum__3D5E1FD2">
+    <End Role="Event_" Type="Self.Event_" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event_">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="EventNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__IssuedDoc__Order__4316F928">
+    <End Role="Order_" Type="Self.Order_" Multiplicity="1" />
+    <End Role="IssuedDocuments" Type="Self.IssuedDocuments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order_">
+        <PropertyRef Name="OrderName" />
+      </Principal>
+      <Dependent Role="IssuedDocuments">
+        <PropertyRef Name="OrderName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__IssuedDocu__Role__440B1D61">
+    <End Role="Supervisor" Type="Self.Supervisor" Multiplicity="1" />
+    <End Role="IssuedDocuments" Type="Self.IssuedDocuments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supervisor">
+        <PropertyRef Name="Role" />
+      </Principal>
+      <Dependent Role="IssuedDocuments">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order___EventNum__3C69FB99">
+    <End Role="OutgoingCorrespondent" Type="Self.OutgoingCorrespondent" Multiplicity="1" />
+    <End Role="Order_" Type="Self.Order_" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OutgoingCorrespondent">
+        <PropertyRef Name="Role" />
+      </Principal>
+      <Dependent Role="Order_">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudyingPracticeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CommonEmployee" EntityType="Self.CommonEmployee" />
+    <EntitySet Name="Event_" EntityType="Self.Event_" />
+    <EntitySet Name="IssuedDocuments" EntityType="Self.IssuedDocuments" />
+    <EntitySet Name="Order_" EntityType="Self.Order_" />
+    <EntitySet Name="OutgoingCorrespondent" EntityType="Self.OutgoingCorrespondent" />
+    <EntitySet Name="Supervisor" EntityType="Self.Supervisor" />
+    <AssociationSet Name="FK__Order___EventRes__3E52440B" Association="Self.FK__Order___EventRes__3E52440B">
+      <End Role="CommonEmployee" EntitySet="CommonEmployee" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order___EventNum__3D5E1FD2" Association="Self.FK__Order___EventNum__3D5E1FD2">
+      <End Role="Event_" EntitySet="Event_" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+    <AssociationSet Name="FK__IssuedDoc__Order__4316F928" Association="Self.FK__IssuedDoc__Order__4316F928">
+      <End Role="Order_" EntitySet="Order_" />
+      <End Role="IssuedDocuments" EntitySet="IssuedDocuments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__IssuedDocu__Role__440B1D61" Association="Self.FK__IssuedDocu__Role__440B1D61">
+      <End Role="Supervisor" EntitySet="Supervisor" />
+      <End Role="IssuedDocuments" EntitySet="IssuedDocuments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order___EventNum__3C69FB99" Association="Self.FK__Order___EventNum__3C69FB99">
+      <End Role="OutgoingCorrespondent" EntitySet="OutgoingCorrespondent" />
+      <End Role="Order_" EntitySet="Order_" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
